@@ -1,0 +1,12 @@
+{
+    // Additional autocompletion search directories
+    "python.autoComplete.extraPaths": [
+        "./",
+    ],
+
+    // Ignore intermediary files
+    "files.exclude": {
+        "**/*.pyc": true,
+        "**/__pycache__": true,
+    },
+}
