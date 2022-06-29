@@ -26,39 +26,19 @@ class SelectorFrame(Frame):
             title="Templates",
             hover_focus=True,
             can_scroll=False)
-        
-        # Setup main layout
         self.set_theme("default")
-        layout = Layout([1, 1], fill_frame=True)
-        self.add_layout(layout)
 
-        # Setup Groups ListBox
-        layout.add_widget(Label("Group", align="^"), 0)
-        indexed_groups = []
-        for x in range(0, len(cfg.menu_groups)):
-            indexed_groups.append((cfg.menu_groups[x], x))
-        self.GroupLB = ListBox(
-            height=Widget.FILL_FRAME,
-            add_scroll_bar=True,
-            on_change=self._on_group_change,
-            options = indexed_groups)
-        layout.add_widget(self.GroupLB, 0)
+        self._add_header_layout()
+        self._add_main_layout()
+        self._add_button_layout()
 
-        # Setup Templates Listbox
-        layout.add_widget(Label("Template", align="^"), 1)
-        self.TemplateLB = ListBox(
-            height=Widget.FILL_FRAME,
-            add_scroll_bar=True,
-            on_change=self._on_tmpl_change,
-            options = [])
-        layout.add_widget(self.TemplateLB, 1)
 
-        # Add Buttons
-        layout2 = Layout([1, 1])
-        self.add_layout(layout2)
-        layout2.add_widget(Button("Quit", self._quit_butt), 0)
-        layout2.add_widget(Button("Select", self._select_butt), 1)
-        self.fix()
+
+
+
+
+        # Add Buttons Layout
+
 
         #self._reset_button = Button("Reset", self._reset)
         #layout.add_widget(Label("Group 1:"), 1)
@@ -100,17 +80,74 @@ class SelectorFrame(Frame):
         #layout.add_widget(Divider(height=3), 1)
 
 
+    def _add_header_layout(self):
+        layout = Layout([1, 3])
+        self.add_layout(layout)
+        layout.add_widget(Label("Name: ", align=">"), 0)
+        layout.add_widget(Label("Link: ", align=">"), 0)
+        layout.add_widget(Label("Description: ", align=">"), 0)
+
+        self.NameLbl = Label("test", align="<")
+        layout.add_widget(self.NameLbl, 1)
+        self.LinkLbl = Label("", align="<")
+        layout.add_widget(self.LinkLbl, 1)
+        self.DescLbl = Label("", align="<")
+        layout.add_widget(self.DescLbl, 1)
+
+        layout.add_widget(Divider(height=3), 0)
+        layout.add_widget(Divider(height=3), 1)
+        return
+
+
+    def _add_main_layout(self):
+        layout = Layout([1, 1], fill_frame=True)
+        self.add_layout(layout)
+
+        # Setup Groups ListBox
+        layout.add_widget(Label("Group", align="^"), 0)
+        indexed_groups = []
+        for x in range(0, len(self.cfg.menu_groups)):
+            indexed_groups.append((self.cfg.menu_groups[x], x))
+        self.GroupLB = ListBox(
+            height=Widget.FILL_FRAME,
+            add_scroll_bar=True,
+            on_change=self._on_group_change,
+            options = indexed_groups)
+        layout.add_widget(self.GroupLB, 0)
+
+        # Setup Templates Listbox
+        layout.add_widget(Label("Template", align="^"), 1)
+        self.TemplateLB = ListBox(
+            height=Widget.FILL_FRAME,
+            add_scroll_bar=True,
+            on_change=self._on_tmpl_change,
+            options = [])
+        layout.add_widget(self.TemplateLB, 1)
+
+
+    def _add_button_layout(self):
+        layout = Layout([1, 1])
+        self.add_layout(layout)
+        layout.add_widget(Button("Quit", self._quit_butt), 0)
+        layout.add_widget(Button("Select", self._select_butt), 1)
+        self.fix()
+
 
     def _on_group_change(self):
         group_selected_name = self._get_selected_group()
         tmpls = self.cfg.get_templates_indexed(group_selected_name)
         self.TemplateLB.options = tmpls
+        self._on_tmpl_change()
+
 
     def _on_tmpl_change(self):
         group_name = self._get_selected_group()
         tmpl_name = self._get_selected_tmpl()
         tmpl = self.cfg.get_template(group_name, tmpl_name)
-        print("TODO")
+        self.NameLbl.text = tmpl['name']
+        self.LinkLbl.text = tmpl['link']
+        self.DescLbl.text = tmpl['description']
+
 
     def _get_selected_group(self):
         group_selected_name = self.GroupLB.options[self.GroupLB.value][0]
@@ -119,6 +156,7 @@ class SelectorFrame(Frame):
     def _get_selected_tmpl(self):
         tmpl_selected_name = self.TemplateLB.options[self.TemplateLB.value][0]
         return tmpl_selected_name
+
 
     def _select_butt(self):
         group_name = self._get_selected_group()
@@ -131,6 +169,7 @@ class SelectorFrame(Frame):
         print("TODO")
         # TODO find a way to exit the UI
 
+
     def _quit_butt(self):
         self._scene.add_effect(
             PopUpDialog(self._screen,
@@ -138,58 +177,9 @@ class SelectorFrame(Frame):
                         ["Yes", "No"],
                         on_close=self._quit_on_yes))
 
+
     @staticmethod
     def _quit_on_yes(selected):
         # Yes is the first button
         if selected == 0:
             exit()
-
-
-
-
-
-
-
-
-
-
-
-
-
-        #for x in range(0, len(tmpls)):
-        #    opts1.append(("item" + str(x), x))
-        
-        #changed = False
-    #    self.save()
-    #    for key, value in self.data.items():
-    #        if key not in form_data or form_data[key] != value:
-    #            changed = True
-    #            break
-    #    self._reset_button.disabled = not changed
-
-    #def _reset(self):
-    #    self.reset()
-    #    raise NextScene()
-
-    #def _view(self):
-    #    # Build result of this form and display it.
-    #    try:
-    #        self.save(validate=True)
-    #        message = "Values entered are:\n\n"
-    #        for key, value in self.data.items():
-    #            message += "- {}: {}\n".format(key, value)
-    #    except InvalidFields as exc:
-    #        message = "The following fields are invalid:\n\n"
-    #        for field in exc.fields:
-    #            message += "- {}\n".format(field)
-    #    self._scene.add_effect(
-    #        PopUpDialog(self._screen, message, ["OK"]))
-
-
-
-    #@staticmethod
-    #def _check_email(value):
-    #    m = re.match(r"^[a-zA-Z0-9_\-.]+@[a-zA-Z0-9_\-.]+\.[a-zA-Z0-9_\-.]+$",
-    #                 value)
-    #    return len(value) == 0 or m is not None
-
