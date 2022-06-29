@@ -1,40 +1,28 @@
 {
-    "sites": [
-        {
-            "group": "web",
-            "name": "svelte-storybook-vite",
-            "link": "Hecatron-Templates/svelte-storybook-vite",
-            "description": "A template based around svelte and storybook that uses vite for the build system"
-        },
-        {
-            "group": "web",
-            "name": "svelte-storybook-vite2",
-            "link": "Hecatron-Templates/svelte-storybook-vite",
-            "description": "A template based around svelte and storybook that uses vite for the build system"
-        },
-        {
-            "group": "web",
-            "name": "svelte-storybook-vite3",
-            "link": "Hecatron-Templates/svelte-storybook-vite",
-            "description": "A template based around svelte and storybook that uses vite for the build system"
-        },
-        {
-            "group": "web2",
-            "name": "svelte-storybook-vite",
-            "link": "Hecatron-Templates/svelte-storybook-vite",
-            "description": "A template based around svelte and storybook that uses vite for the build system"
-        },
-        {
-            "group": "web2",
-            "name": "svelte-storybook-vite2",
-            "link": "Hecatron-Templates/svelte-storybook-vite",
-            "description": "A template based around svelte and storybook that uses vite for the build system"
-        },
-        {
-            "group": "web2",
-            "name": "svelte-storybook-vite3",
-            "link": "Hecatron-Templates/svelte-storybook-vite",
-            "description": "A template based around svelte and storybook that uses vite for the build system"
-        }
-    ]
+    "sites": {
+        "web": [
+            {
+                "name": "svelte-storybook-vite",
+                "link": "Hecatron-Templates/svelte-storybook-vite",
+                "description": "A template based around svelte and storybook that uses vite for the build system"
+            },
+            {
+                "name": "svelte-storybook-vite2",
+                "link": "Hecatron-Templates/svelte-storybook-vite",
+                "description": "A template based around svelte and storybook that uses vite for the build system"
+            }
+        ],
+        "web2": [
+            {
+                "name": "svelte-storybook-vite",
+                "link": "Hecatron-Templates/svelte-storybook-vite",
+                "description": "A template based around svelte and storybook that uses vite for the build system"
+            },
+            {
+                "name": "svelte-storybook-vite2",
+                "link": "Hecatron-Templates/svelte-storybook-vite",
+                "description": "A template based around svelte and storybook that uses vite for the build system"
+            }
+        ]
+    }
 }

@@ -6,6 +6,7 @@ from asciimatics.exceptions import ResizeScreenError
 from tui_logo import get_logo_effects
 from tui_selector import SelectorFrame
 from copier import run_auto
+from config import MenuConfig
 import sys
 
 # With asciimatics things are layered as screen -> scenes -> effects -> frames
@@ -13,15 +14,18 @@ import sys
 # frame is layered as frame -> layout -> widgets
 # https://asciimatics.readthedocs.io/en/stable/widgets.html#layouts-in-more-detail
 
+cfg = MenuConfig()
+
 def setup_screen(screen):
     scenes = []
     effects = []
     effects += get_logo_effects(screen)
-    effects.append(SelectorFrame(screen))
+    effects.append(SelectorFrame(screen, cfg))
     scenes.append(Scene(effects, -1))
     screen.play(scenes, stop_on_resize=True)
 
 def menu():
+    cfg.read()
     while True:
         try:
             Screen.wrapper(setup_screen)
