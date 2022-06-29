@@ -16,14 +16,14 @@ sites:
 
     web2:
 
-        - name: "svelte-storybook-vite"
+        - name: "svelte-storybook-vite4"
           link: "Hecatron-Templates/svelte-storybook-vite"
           description: "A template based around svelte and storybook that uses vite for the build system"
 
-        - name: "svelte-storybook-vite2"
+        - name: "svelte-storybook-vite5"
           link: "Hecatron-Templates/svelte-storybook-vite"
           description: "A template based around svelte and storybook that uses vite for the build system"
 
-        - name: "svelte-storybook-vite3"
+        - name: "svelte-storybook-vite6"
           link: "Hecatron-Templates/svelte-storybook-vite"
           description: "A template based around svelte and storybook that uses vite for the build system"

@@ -2,21 +2,9 @@ from asciimatics.widgets import Frame, TextBox, Layout, Label, Divider, Text, \
     CheckBox, RadioButtons, Button, PopUpDialog, ListBox, Widget
 import re
 
-# Initial data for the form
-#form_data = {
-#    "TA": ["Hello world!", "How are you?"],
-#    "TB": "alphabet",
-#    "TC": "123",
-#    "TD": "a@b.com",
-#    "Things": 2,
-#    "CA": False,
-#    "CB": True,
-#    "CC": False,
-#}
-
-
 class SelectorFrame(Frame):
     def __init__(self, screen, cfg):
+        self.cfg = cfg
 
         frame_y = 8
         frame_height = screen.height - frame_y
@@ -56,19 +44,22 @@ class SelectorFrame(Frame):
             options = indexed_groups)
         layout.add_widget(self.GroupLB, 0)
 
-
-
-
-        opts1 = []
-        for x in range(1, 22):
-            opts1.append(("item" + str(x), x))
-
+        # Setup Templates Listbox
         layout.add_widget(Label("Template", align="^"), 1)
-        layout.add_widget(ListBox(
+        self.TemplateLB = ListBox(
             height=Widget.FILL_FRAME,
             add_scroll_bar=True,
-            options = opts1), 1)
-        
+            on_change=self._on_tmpl_change,
+            options = [])
+        layout.add_widget(self.TemplateLB, 1)
+
+        # Add Buttons
+        layout2 = Layout([1, 1])
+        self.add_layout(layout2)
+        layout2.add_widget(Button("Quit", self._quit_butt), 0)
+        layout2.add_widget(Button("Select", self._select_butt), 1)
+        self.fix()
+
         #self._reset_button = Button("Reset", self._reset)
         #layout.add_widget(Label("Group 1:"), 1)
         #layout.add_widget(TextBox(5,
@@ -107,15 +98,40 @@ class SelectorFrame(Frame):
         #layout.add_widget(
         #    CheckBox("Field 3", name="CC", on_change=self._on_change), 1)
         #layout.add_widget(Divider(height=3), 1)
-        layout2 = Layout([1, 1])
-        self.add_layout(layout2)
-        #layout2.add_widget(self._reset_button, 0)
-        #layout2.add_widget(Button("View Data", self._view), 1)
-        layout2.add_widget(Button("Quit", self._quit), 0)
-        layout2.add_widget(Button("Select", self._quit), 1)
-        self.fix()
 
-    def _quit(self):
+
+
+    def _on_group_change(self):
+        group_selected_name = self._get_selected_group()
+        tmpls = self.cfg.get_templates_indexed(group_selected_name)
+        self.TemplateLB.options = tmpls
+
+    def _on_tmpl_change(self):
+        group_name = self._get_selected_group()
+        tmpl_name = self._get_selected_tmpl()
+        tmpl = self.cfg.get_template(group_name, tmpl_name)
+        print("TODO")
+
+    def _get_selected_group(self):
+        group_selected_name = self.GroupLB.options[self.GroupLB.value][0]
+        return group_selected_name
+
+    def _get_selected_tmpl(self):
+        tmpl_selected_name = self.TemplateLB.options[self.TemplateLB.value][0]
+        return tmpl_selected_name
+
+    def _select_butt(self):
+        group_name = self._get_selected_group()
+        tmpl_name = self._get_selected_tmpl()
+        tmpl = self.cfg.get_template(group_name, tmpl_name)
+        link = tmpl['link']
+
+        # TODO make a call to copier api here
+        print(link)
+        print("TODO")
+        # TODO find a way to exit the UI
+
+    def _quit_butt(self):
         self._scene.add_effect(
             PopUpDialog(self._screen,
                         "Are you sure?",
@@ -137,11 +153,13 @@ class SelectorFrame(Frame):
 
 
 
-    def _on_group_change(self):
-        group_selected_val = self.GroupLB.value
-        group_selected_name = self.GroupLB.options[group_selected_val][0]
+
+
+
+        #for x in range(0, len(tmpls)):
+        #    opts1.append(("item" + str(x), x))
         
-        changed = False
+        #changed = False
     #    self.save()
     #    for key, value in self.data.items():
     #        if key not in form_data or form_data[key] != value:
