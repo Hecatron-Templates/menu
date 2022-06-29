@@ -8,7 +8,7 @@ class ContextUpdater(ContextHook):
     update = False
 
     def hook(self, context):
-        #context["subdir"] = "web/svelte-storybook-vite"
         menu()
-        # TODO leaves temp directory behind
-        exit()
+
+		# Allow copier to exit cleanly instead of just calling exit()
+        context["subdir"] = "menu/dummy"

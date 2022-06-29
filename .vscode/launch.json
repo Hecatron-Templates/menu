@@ -8,11 +8,11 @@
             "name": "Python: Menu Debug",
             "type": "python",
             "request": "launch",
-            "cwd": "${workspaceFolder}/menu",
+            "cwd": "${workspaceFolder}",
             "program": "./menu/main.py",
             "args": [],
             "env": {
-                "PYTHONPATH" : "${workspaceFolder}/menu",
+                "PYTHONPATH" : "${workspaceFolder}",
             },
         },
     ]

@@ -1,6 +1,7 @@
 from asciimatics.widgets import Frame, TextBox, Layout, Label, Divider, Text, \
     CheckBox, RadioButtons, Button, PopUpDialog, ListBox, Widget
 import re
+import config
 
 # Initial data for the form
 form_data = {
@@ -17,6 +18,11 @@ form_data = {
 
 class SelectorFrame(Frame):
     def __init__(self, screen):
+
+        tmp1 = config.read_cfg()
+
+
+
         frame_y = 8
         frame_height = screen.height - frame_y
         frame_width = int(screen.width - 2)
