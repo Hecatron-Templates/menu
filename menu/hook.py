@@ -8,7 +8,7 @@ class ContextUpdater(ContextHook):
     update = False
 
     def hook(self, context):
-        menu()
+        menu(sys.argv)
 
 		# Allow copier to exit cleanly instead of just calling exit()
         context["subdir"] = "menu/dummy"

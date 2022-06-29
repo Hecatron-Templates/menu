@@ -10,7 +10,7 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "program": "./menu/main.py",
-            "args": [],
+            "args": ["temp1"],
             "env": {
                 "PYTHONPATH" : "${workspaceFolder}",
             },

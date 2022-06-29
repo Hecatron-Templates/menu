@@ -5,7 +5,6 @@ from asciimatics.screen import Screen
 from asciimatics.exceptions import ResizeScreenError
 from tui_logo import get_logo_effects
 from tui_selector import SelectorFrame
-from copier import run_auto
 from config import MenuConfig
 import sys
 
@@ -20,22 +19,22 @@ def setup_screen(screen):
     scenes = []
     effects = []
     effects += get_logo_effects(screen)
-    effects.append(SelectorFrame(screen, cfg))
+    effects.append(SelectorFrame(screen, cfg, args))
     scenes.append(Scene(effects, -1))
     screen.play(scenes, stop_on_resize=True)
 
-def menu():
+def menu(argv):
     cfg.read()
+    global args
+    args = argv
     while True:
         try:
             Screen.wrapper(setup_screen)
-            sys.exit(0)
+            break
         except ResizeScreenError:
             pass
 
 if __name__ == "__main__":
-    menu()
-
-# TODO
-# Wrapper for debugging copier launched scripts
-#run_auto("./", "./temp/temp1")
+    if len(sys.argv) < 2:
+        raise Exception("at least one argument is required")
+    menu(sys.argv)

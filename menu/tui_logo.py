@@ -18,18 +18,11 @@ def get_logo_effects(screen):
 
     effects = [
 
-        # Fire effect in background
         #Print(screen,
-        #    Fire(logoheight + 9, 80, text, 0.4, 40, screen.colours),
-        #    0,
-        #    speed=1,
-        #    transparent=False),
-        #Print(screen,
-        #    Plasma(plasma_height, screen.width, screen.colours),
+        #    Plasma(fire_height, screen.width, screen.colours),
         #    y=0,
         #    x=0,
         #    speed=1),
-
 
         Print(screen,
             Fire(height=fire_height,
@@ -43,17 +36,16 @@ def get_logo_effects(screen):
             speed=1,
             transparent=False),
 
-
         # Text shadown behind main text
-        #Print(screen,
-        #    FigletText(logotext, logofont),
-        #    y=logo_y,
-        #    x=logo_x,
-        #    colour=Screen.COLOUR_BLACK,
-        #    bg=Screen.COLOUR_BLACK,
-        #    attr=Screen.COLOUR_BLACK,
-        #    clear=True,
-        #    speed=1),
+        Print(screen,
+            FigletText(logotext, logofont),
+            y=logo_y + 1,
+            x=logo_x + 1,
+            colour=Screen.COLOUR_BLACK,
+            bg=Screen.COLOUR_BLACK,
+            attr=Screen.COLOUR_BLACK,
+            clear=True,
+            speed=1),
 
         # Main text
         Print(screen,
